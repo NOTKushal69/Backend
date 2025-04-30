@@ -6,19 +6,20 @@
 // const sequelize=require('sequelize')
 // const sequelize=sequelize.Sequelize;
 // const database.sequelize.Datatypes;
+// instantiation class lai objects ma lafgxa
 
 const {Sequelize,DataTypes} =require('sequelize');
 
-// instantiation class lai objects ma lafgxa
+
 const sequelize= new Sequelize("postgresql://postgres.izksfnbestqbbvenmndl:yohaitababu3321@aws-0-ap-south-1.pooler.supabase.com:6543/postgres")
 
 
 sequelize.authenticate()
 .then(()=>{
-console.log("Connect bhayo");
+  console.log("Connect bhayo");
 })
 .catch((err)=>{
-console.log("Error"+err)
+  console.log("Error"+err)
 })
 
 
@@ -27,6 +28,13 @@ const db={}
 db.Sequelize=Sequelize;
 db.sequelize=sequelize
 
+db.books=require('./models/books.model')(sequelize,DataTypes);
+db.user=require('./models/user.model')(sequelize,DataTypes);
+
+// migrate code ho hai yo
+sequelize.sync({alter:false}).then(()=>{
+  console.log("Migrate bhayo haitw")
+})
 
 
 module.exports=db;
